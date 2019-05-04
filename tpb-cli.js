@@ -11,6 +11,9 @@ function progRun(){
 	const music = '/0/99/100';
 	const all = '/0/99/0';
 	const path = process.env.TORR_PATH;
+	if(path===undefined){
+		process.exit();
+	};
 
 	var searchType = '';
 	var isType = false;
