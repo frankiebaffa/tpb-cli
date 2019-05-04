@@ -12,6 +12,7 @@ function progRun(){
 	const all = '/0/99/0';
 	const path = process.env.TORR_PATH;
 	if(path===undefined){
+		console.log("TORR_PATH is undefined.");
 		process.exit();
 	};
 
