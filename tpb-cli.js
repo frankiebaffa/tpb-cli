@@ -115,6 +115,7 @@ function progRun(){
 			};
 		};
 		var counter = 0;
+		var infoCount = 0;
 		var client = new torr();
 		client.add(results[choice].magnet,{
 			path: path
@@ -133,9 +134,17 @@ function progRun(){
 				console.log('| Time Rem: '+prettyPad(""+prettyTime(torrent.timeRemaining))+' |');
 				console.log('|--------------------------|');
 				var total = torrent.files.length;
-				for(var j=0;j<4;j++){
+				for(var j=0;j<5;j++){
 					var file = torrent.files[counter];
-					console.log(counter+": "+file.name);
+					var countStr;
+					if((counter+"").length==1){
+						countStr = "00"+counter;
+					}else if((counter+"").length==2){
+						countStr = "0"+counter;
+					}else if((counter+"").length==3){
+						countStr = ""+counter;
+					};
+					console.log(countStr+": "+file.name.substring(0,47)+"...");
 					if(counter+1==total){
 						counter = 0;
 					}else{
@@ -151,16 +160,16 @@ function progRun(){
 				process.exit();
 			});
 			torrent.on('warning',function(err){
-				updateInfo("Warning : "+err);
+				infoCount++;
+				updateInfo(infoCount+": Warning : "+err);
 			});
 			torrent.on('error',function(err){
-				updateInfo("Err     : "+err);
-			});
-			torrent.on('wire',function(wire){
-				updateInfo("Wire    : "+wire);
+				infoCount++;
+				updateInfo(infoCount+": Err     : "+err);
 			});
 			torrent.on('noPeers',function(announceType){
-				updateInfo("No peers: "+announceType);
+				infoCount++;
+				updateInfo(infoCount+": No peers: "+announceType);
 			});
 			function updateInfo(str){
 				info[infoNum] = str;
