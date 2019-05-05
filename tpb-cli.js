@@ -131,10 +131,17 @@ function progRun(){
 				console.log('| Progress: '+prettyPad(""+(Math.round((client.progress*100)*100)/100)+'%')+' |');
 				console.log('| Time Rem: '+prettyPad(""+prettyTime(torrent.timeRemaining))+' |');
 				console.log('|--------------------------|');
-				for(var i in torrent.files){
-					var file = torrent.files[i];
-					console.log(file.name);
-				}
+				var total = torrent.files.length;
+				var counter = 0;
+				for(var j = 0;j<5;j++){
+					var file = torrent.files[counter];
+					console.log(counter+": "+file.name);
+					if(counter+1==total){
+						counter = 0;
+					}else{
+						counter++;
+					}
+				};
 				for(var i in info){
 					console.log(info[i]);
 				};
