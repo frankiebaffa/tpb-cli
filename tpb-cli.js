@@ -10,7 +10,7 @@ function progRun(){
 	const other = '/0/99/600';
 	const music = '/0/99/100';
 	const all = '/0/99/0';
-	var info = [];
+	var info = ['','','','',''];
 	var infoNum = 0;
 	const path = process.env.TORR_PATH;
 	if(path===undefined){
@@ -123,7 +123,7 @@ function progRun(){
 			function onProgress(){
 				console.clear();
 				console.log('|--------------------------|');
-				console.log('| Peers   : '+prettyPad(torrent.numPeers));
+				console.log('| Peers   : '+prettyPad(""+torrent.numPeers)+' |');
 				console.log('| Down    : '+prettyPad(prettyBytes(torrent.downloadSpeed))+' |');
 				console.log('| Up      : '+prettyPad(prettyBytes(torrent.uploadSpeed))+' |');
 				console.log('| Down\'d  : '+prettyPad(prettyBytes(torrent.downloaded))+' |');
@@ -131,7 +131,9 @@ function progRun(){
 				console.log('| Progress: '+prettyPad(""+(Math.round((client.progress*100)*100)/100)+'%')+' |');
 				console.log('| Time Rem: '+prettyPad(""+prettyTime(torrent.timeRemaining))+' |');
 				console.log('|--------------------------|');
-				console.log(info);
+				for(var i in info){
+					console.log(info[i]);
+				};
 			}
 			torrent.on('done',function(){
 				console.log('finished');
