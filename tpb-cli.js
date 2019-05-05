@@ -114,6 +114,7 @@ function progRun(){
 				isChoice = true;
 			};
 		};
+		var counter = 0;
 		var client = new torr();
 		client.add(results[choice].magnet,{
 			path: path
@@ -132,16 +133,15 @@ function progRun(){
 				console.log('| Time Rem: '+prettyPad(""+prettyTime(torrent.timeRemaining))+' |');
 				console.log('|--------------------------|');
 				var total = torrent.files.length;
-				var counter = 0;
-				for(var j = 0;j<5;j++){
+				for(var j=0;j<4;j++){
 					var file = torrent.files[counter];
 					console.log(counter+": "+file.name);
 					if(counter+1==total){
 						counter = 0;
 					}else{
 						counter++;
-					}
-				};
+					};
+				}
 				for(var i in info){
 					console.log(info[i]);
 				};
