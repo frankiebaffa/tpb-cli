@@ -131,6 +131,10 @@ function progRun(){
 				console.log('| Progress: '+prettyPad(""+(Math.round((client.progress*100)*100)/100)+'%')+' |');
 				console.log('| Time Rem: '+prettyPad(""+prettyTime(torrent.timeRemaining))+' |');
 				console.log('|--------------------------|');
+				for(var i in torrent.files){
+					var file = torrent.files[i];
+					console.log(file.name);
+				}
 				for(var i in info){
 					console.log(info[i]);
 				};
@@ -140,16 +144,16 @@ function progRun(){
 				process.exit();
 			});
 			torrent.on('warning',function(err){
-				updateInfo("\nWarning : "+err);
+				updateInfo("Warning : "+err);
 			});
 			torrent.on('error',function(err){
-				updateInfo("\nErr     : "+err);
+				updateInfo("Err     : "+err);
 			});
 			torrent.on('wire',function(wire){
-				updateInfo("\nWire    : "+wire);
+				updateInfo("Wire    : "+wire);
 			});
 			torrent.on('noPeers',function(announceType){
-				updateInfo("\nNo peers: "+announceType);
+				updateInfo("No peers: "+announceType);
 			});
 			function updateInfo(str){
 				info[infoNum] = str;
