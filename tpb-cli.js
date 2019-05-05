@@ -136,15 +136,11 @@ function progRun(){
 				var total = torrent.files.length;
 				for(var j=0;j<5;j++){
 					var file = torrent.files[counter];
-					var countStr;
-					if((counter+"").length==1){
-						countStr = "00"+counter;
-					}else if((counter+"").length==2){
-						countStr = "0"+counter;
-					}else if((counter+"").length==3){
-						countStr = ""+counter;
+					if(file.name.length>50){
+						console.log(padHun(counter)+": "+file.name.substring(0,47)+"...");
+					}else{
+						console.log(padHun(counter)+": "+file.name);
 					};
-					console.log(countStr+": "+file.name.substring(0,47)+"...");
 					if(counter+1==total){
 						counter = 0;
 					}else{
@@ -152,7 +148,11 @@ function progRun(){
 					};
 				}
 				for(var i in info){
-					console.log(info[i]);
+					if(info[i].length>55){
+						console.log(info[i].substring(0,52)+"...");
+					}else{
+						console.log(info[i]);
+					}
 				};
 			}
 			torrent.on('done',function(){
@@ -161,15 +161,15 @@ function progRun(){
 			});
 			torrent.on('warning',function(err){
 				infoCount++;
-				updateInfo(infoCount+": Warning : "+err);
+				updateInfo(padHun(infoCount)+": Warning : "+err);
 			});
 			torrent.on('error',function(err){
 				infoCount++;
-				updateInfo(infoCount+": Err     : "+err);
+				updateInfo(padHun(infoCount)+": Err     : "+err);
 			});
 			torrent.on('noPeers',function(announceType){
 				infoCount++;
-				updateInfo(infoCount+": No peers: "+announceType);
+				updateInfo(padHun(infoCount)+": No peers: "+announceType);
 			});
 			function updateInfo(str){
 				info[infoNum] = str;
@@ -178,7 +178,18 @@ function progRun(){
 				}else{
 					infoNum = 0
 				}
-			}
+			};
+			function padHun(count){
+				var countStr;
+				if((count+"").length==1){
+					countStr = "00"+count;
+				}else if((count+"").length==2){
+					countStr = "0"+count;
+				}else if((count+"").length==3){
+					countStr = ""+count;
+				};
+				return countStr;
+			};
 		});
 	}
 	function roundToHun(num){
