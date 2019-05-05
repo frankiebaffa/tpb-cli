@@ -154,9 +154,9 @@ function progRun(){
 			function updateInfo(str){
 				info[infoNum] = str;
 				if(infoNum<4){
-					info++;
+					infoNum++;
 				}else{
-					info = 0
+					infoNum = 0
 				}
 			}
 		});
