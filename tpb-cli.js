@@ -10,7 +10,8 @@ function progRun(){
 	const other = '/0/99/600';
 	const music = '/0/99/100';
 	const all = '/0/99/0';
-	var info = "";
+	var info = [];
+	var infoNum = 0;
 	const path = process.env.TORR_PATH;
 	if(path===undefined){
 		console.log("TORR_PATH is undefined.");
@@ -137,17 +138,25 @@ function progRun(){
 				process.exit();
 			});
 			torrent.on('warning',function(err){
-				info += "\nWarning : "+err;
+				updateInfo("\nWarning : "+err);
 			});
 			torrent.on('error',function(err){
-				info += "\nErr     : "+err;
+				updateInfo("\nErr     : "+err);
 			});
 			torrent.on('wire',function(wire){
-				info += "\nWire    : "+wire;
+				updateInfo("\nWire    : "+wire);
 			});
 			torrent.on('noPeers',function(announceType){
-				info += "\nNo peers: "+announceType;
-			})
+				updateInfo("\nNo peers: "+announceType);
+			});
+			function updateInfo(str){
+				info[infoNum] = str;
+				if(infoNum<4){
+					info++;
+				}else{
+					info = 0
+				}
+			}
 		});
 	}
 	function roundToHun(num){
